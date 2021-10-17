@@ -1,3 +1,16 @@
+'ThisOutlookSession
+Private Sub Application_Startup()
+Call Call_ItemAdd_Event
+End Sub
+
+'Call Class Module
+Dim myClass As New MoveNewMailToFolder
+
+Sub Call_ItemAdd_Event()
+    Set myClass.olItems = Outlook.GetNamespace("MAPI").GetDefaultFolder(olFolderInbox).Items
+End Sub
+
+'Class Module
 Option Explicit
 Public WithEvents olItems As Outlook.Items
  
