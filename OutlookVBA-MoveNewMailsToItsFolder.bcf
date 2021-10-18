@@ -31,21 +31,24 @@ Dim NameOfSender As String
 Dim olNewFldr As Folder
 Dim olSendersFldr As Folder
 Dim olName As NameSpace
+Dim olAcc As Account
 
 Set olName = Application.GetNamespace("MAPI")
-If TypeOf olItem Is MailItem Then
-    NameOfSender = olItem.SenderName
-    If SenderFolderExists() = False Then
-        Set olSendersFldr = olName.Folders(1).Folders.Add("Senders")
+For Each olAcc In Session.Accounts
+    If TypeOf olItem Is MailItem Then
+        NameOfSender = olItem.SenderName
+        If SenderFolderExists() = False Then
+            Set olSendersFldr = olName.Folders(1).Folders.Add("Senders")
+        End If
+        If FolderExistsInSenders(olItem.SenderName) = False Then
+            Set olNewFldr = olName.Folders(1).Folders("Senders").Folders.Add(NameOfSender)
+            olItem.Move olNewFldr
+        Else
+            Set olNewFldr = olName.Folders(1).Folders("Senders").Folders(NameOfSender)
+            olItem.Move olNewFldr
+        End If
     End If
-    If FolderExistsInSenders(olItem.SenderName) = False Then
-        Set olNewFldr = olName.Folders(1).Folders("Senders").Folders.Add(NameOfSender)
-        olItem.Move olNewFldr
-    Else
-        Set olNewFldr = olName.Folders(1).Folders("Senders").Folders(NameOfSender)
-        olItem.Move olNewFldr
-    End If
-End If
+Next
 
 End Sub
 
@@ -84,5 +87,6 @@ For Each FolderObject In Application.GetNamespace("MAPI").Folders(1).Folders
 Next
 
 End Function
+
 
 
