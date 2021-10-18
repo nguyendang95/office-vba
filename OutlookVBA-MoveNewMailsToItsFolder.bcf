@@ -59,15 +59,15 @@ Set SendersFldr = Application.GetNamespace("MAPI").Folders(1).Folders("Senders")
 If SendersFldr.Folders.Count = 0 Then
     FolderExistsInSenders = False
     Exit Function
-Else
-    For Each FolderObject In SendersFldr.Folders
-        If FolderObject.Name = FolderName Then
-            FolderExistsInSenders = True
-        Else
-            FolderExistsInSenders = False
-        End If
-    Next
 End If
+For Each FolderObject In SendersFldr.Folders
+    If FolderObject.Name = FolderName Then
+        FolderExistsInSenders = True
+    Else
+        FolderExistsInSenders = False
+    End If
+    If FolderExistsInSenders = True Or FolderExistsInSenders = False Then Exit For
+Next
 
 End Function
 
@@ -76,7 +76,7 @@ Function SenderFolderExists() As Boolean
 Dim FolderObject As Folder
 
 For Each FolderObject In Application.GetNamespace("MAPI").Folders(1).Folders
-    If FolderObject.Name = "Sender" Then
+    If FolderObject.Name = "Senders" Then
         SenderFolderExists = True
     Else
         SenderFolderExists = False
@@ -84,4 +84,5 @@ For Each FolderObject In Application.GetNamespace("MAPI").Folders(1).Folders
 Next
 
 End Function
+
 
