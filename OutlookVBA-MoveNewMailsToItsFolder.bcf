@@ -13,11 +13,10 @@ End Sub
 'Class Module
 Option Explicit
 Public WithEvents olItems As Outlook.Items
+Dim olName As NameSpace
+Dim olInboxFld As Folder
  
 Sub Application_Startup()
- 
-Dim olInboxFldr As Folder
-Dim olName As NameSpace
 
 Set olName = Application.GetNamespace("MAPI")
 Set olInboxFldr = olName.GetDefaultFolder(olFolderInbox)
@@ -30,25 +29,20 @@ Private Sub olItems_ItemAdd(ByVal olItem As Object)
 Dim NameOfSender As String
 Dim olNewFldr As Folder
 Dim olSendersFldr As Folder
-Dim olName As NameSpace
-Dim olAcc As Account
 
-Set olName = Application.GetNamespace("MAPI")
-For Each olAcc In Session.Accounts
-    If TypeOf olItem Is MailItem Then
-        NameOfSender = olItem.SenderName
-        If SenderFolderExists() = False Then
-            Set olSendersFldr = olName.Folders(1).Folders.Add("Senders")
-        End If
-        If FolderExistsInSenders(olItem.SenderName) = False Then
-            Set olNewFldr = olName.Folders(1).Folders("Senders").Folders.Add(NameOfSender)
-            olItem.Move olNewFldr
-        Else
-            Set olNewFldr = olName.Folders(1).Folders("Senders").Folders(NameOfSender)
-            olItem.Move olNewFldr
-        End If
+If TypeOf olItem Is MailItem Then
+    NameOfSender = olItem.SenderName
+    If SenderFolderExists() = False Then
+        Set olSendersFldr = olName.Folders(1).Folders.Add("Senders")
     End If
-Next
+    If FolderExistsInSenders(olItem.SenderName) Then
+        Set olNewFldr = olName.Folders(1).Folders("Senders").Folders(NameOfSender)
+        olItem.Move olNewFldr
+    Else
+        Set olNewFldr = olName.Folders(1).Folders("Senders").Folders.Add(NameOfSender)
+        olItem.Move olNewFldr
+    End If
+End If
 
 End Sub
 
@@ -56,8 +50,9 @@ Function FolderExistsInSenders(FolderName As String) As Boolean
 
 Dim FolderObject As Folder
 Dim SendersFldr As Folder
+Set olName = Application.GetNamespace("MAPI")
 
-Set SendersFldr = Application.GetNamespace("MAPI").Folders(1).Folders("Senders")
+Set SendersFldr = olName.Folders(1).Folders("Senders")
 
 If SendersFldr.Folders.Count = 0 Then
     FolderExistsInSenders = False
@@ -69,7 +64,6 @@ For Each FolderObject In SendersFldr.Folders
     Else
         FolderExistsInSenders = False
     End If
-    If FolderExistsInSenders = True Or FolderExistsInSenders = False Then Exit For
 Next
 
 End Function
@@ -77,8 +71,11 @@ End Function
 Function SenderFolderExists() As Boolean
 
 Dim FolderObject As Folder
+Dim olName As NameSpace
 
-For Each FolderObject In Application.GetNamespace("MAPI").Folders(1).Folders
+Set olName = Application.GetNamespace("MAPI")
+
+For Each FolderObject In olName.Folders(1).Folders
     If FolderObject.Name = "Senders" Then
         SenderFolderExists = True
     Else
