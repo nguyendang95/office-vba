@@ -69,6 +69,3 @@ FolderNotFoundErr: MsgBox "You need to create a folder named 'Senders' before ru
 End If
 
 End Function
-
-
-
