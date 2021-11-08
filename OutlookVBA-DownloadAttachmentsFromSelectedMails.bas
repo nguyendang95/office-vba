@@ -1,6 +1,6 @@
 Option Explicit
 
-Sub SaveAttachmentsOnSelection()
+Sub SaveAttachmentsFromSelectedMails()
 
 Dim olExplorer As Explorer
 Dim olSelection As Selection
