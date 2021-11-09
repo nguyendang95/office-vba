@@ -27,7 +27,9 @@ If olSelection.Count > 0 Then
                 End If
             Else: Exit Sub
             End If
-        Else: MsgBox "Your selection does not include email item. Please try again!", vbExclamation, "No Mails Selected"
+        Else
+            MsgBox "Your selection does not include email item. Please try again!", vbExclamation, "No Mails Selected"
+            Exit Sub
         End If
     Next
 Else
