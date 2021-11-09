@@ -7,7 +7,7 @@ End Sub
 Dim myClass As New MoveNewMailToFolder
 
 Sub Call_ItemAdd_Event()
-    Set myClass.olItems = Outlook.GetNamespace("MAPI").GetDefaultFolder(olFolderInbox).Items
+    Set myClass.olItems = Outlook.GetNamespace("MAPI").Folders("youremail").Folders("Inbox").Items
 End Sub
 
 'Class Module
@@ -20,7 +20,7 @@ Dim olName As NameSpace
 Dim olInboxFld As Folder
 
 Set olName = Application.GetNamespace("MAPI")
-Set olInboxFldr = olName.GetDefaultFolder(olFolderInbox)
+Set olInboxFldr = olName.Folders("youremail").Folders("Inbox")
 Set olItems = olInboxFldr.Items
 
 End Sub
@@ -55,16 +55,14 @@ Set SendersFldr = Application.Session.Folders("youremail").Folders("Senders")
 If SendersFldr.Folders.Count = 0 Then
     FolderExistsInSenders = False
     Exit Function
-Else
-    For Each FolderObject In SendersFldr.Folders
-        If FolderObject.Name = FolderName Then
-            FolderExistsInSenders = True
-            Exit For                               
-        Else
-            FolderExistsInSenders = False
-        End If
-    Next
 End If
+For Each FolderObject In SendersFldr.Folders
+    If FolderObject.Name = FolderName Then
+        FolderExistsInSenders = True
+        Exit For                               
+    Else: FolderExistsInSenders = False
+    End If
+Next
 If Err.Number = -2147221233 Then
 FolderNotFoundErr: MsgBox "You need to create a folder named 'Senders' before running this macro. Please try again.", vbExclamation, "Senders Folder Not Found"
 End If
