@@ -59,6 +59,7 @@ Else
     For Each FolderObject In SendersFldr.Folders
         If FolderObject.Name = FolderName Then
             FolderExistsInSenders = True
+            Exit For                               
         Else
             FolderExistsInSenders = False
         End If
