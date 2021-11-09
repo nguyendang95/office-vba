@@ -55,7 +55,6 @@ If TypeOf olMail Is MailItem Then
                 Set olAtt = olMail.Attachments.Item(i)
                 olAtt.SaveAsFile SenderPath & "\" & olAtt.DisplayName
             Next i
-        Else: Exit For
         End If
     End If
     If Err.Number = 0 Then
