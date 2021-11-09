@@ -17,7 +17,7 @@ Public WithEvents olItems As Outlook.Items
 Sub Application_Startup()
 
 Dim olName As NameSpace
-Dim olInboxFld As Folder
+Dim olInboxFldr As Folder
 
 Set olName = Application.GetNamespace("MAPI")
 Set olInboxFldr = olName.Folders("youremail").Folders("Inbox")
