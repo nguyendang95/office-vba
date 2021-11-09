@@ -38,7 +38,7 @@ Else
     MsgBox "To run this macro, you need to select at least an email.", vbExclamation, "You did not select any email"
     Exit Sub
 End If
-If Err.Number = 0 Then MsgBox CStr(CountOfAttchs) & " attachments in emails of your selection were saved to " & AttchFldr & ". Operation complete!", vbInformation, "Operation Complete"
+                        If Err.Number = 0 Then MsgBox CStr(CountOfAttchs) & " attachments in selected email(s) have been saved to " & AttchFldr & ". Operation complete!", vbInformation, "Operation Complete"
 Set olExplorer = Nothing
 Set olSelection = Nothing
 Set olMail = Nothing
