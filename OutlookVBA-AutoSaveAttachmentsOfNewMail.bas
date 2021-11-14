@@ -57,10 +57,7 @@ If TypeOf olMail Is MailItem Then
             Next i
         End If
     End If
-    If Err.Number = 0 Then
-        MsgBox "A new email just received. Attachment(s) saved to " & SenderPath & ".", vbInformation, "New Attachments received"
-        Shell "explorer """ & SenderPath & "", vbNormalFocus
-    End If
+    Shell "explorer """ & SenderPath & "", vbNormalFocus
 End If
 
 End Sub
