@@ -55,13 +55,9 @@ If TypeOf olMail Is MailItem Then
                 Set olAtt = olMail.Attachments.Item(i)
                 olAtt.SaveAsFile SenderPath & "\" & olAtt.DisplayName
             Next i
-        Else: Exit For
         End If
     End If
-    If Err.Number = 0 Then
-        MsgBox "A new email just received. Attachment(s) saved to " & SenderPath & ".", vbInformation, "New Attachments received"
-        Shell "explorer """ & SenderPath & "", vbNormalFocus
-    End If
+    Shell "explorer """ & SenderPath & "", vbNormalFocus
 End If
 
 End Sub
