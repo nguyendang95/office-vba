@@ -1,5 +1,6 @@
 Option Explicit
-'De chay duoc macro, can tao truoc bookmark cho cac cau hoi trac nghiem trong bo de thi
+'Macro này tự động trộn các câu hỏi trắc nghiệm từ bộ đề thi có sẵn để tạo thành bộ đề trắc nghiệm mới. 
+'Cần tạo bookmark cho các câu hỏi trắc nghiệm trước khi chạy macro,
 Sub TaoDeThiMoiTuKhoDeChoSan()
     Dim objDoc As Document
     Dim objNewDoc As Document
