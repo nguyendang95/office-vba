@@ -29,7 +29,7 @@ Private Function CancelNoAttachments(ByVal objItem As Outlook.MailItem) As Boole
     Dim intPos2 As Integer
     Dim fso As Object
     Dim fsoFile As Object
-    strPath = "C:\Outlook-msgbox.txt"
+    strPath = "C:\Users\nguye\OneDrive\ThucHanhVBA\CongViec\Outlook-msgbox.txt"
     Set fso = CreateObject("Scripting.FileSystemObject")
     Set fsoFile = fso.OpenTextFile(strPath, 1, False, -1)
     strMsgSet = fsoFile.ReadAll
@@ -41,14 +41,17 @@ Private Function CancelNoAttachments(ByVal objItem As Outlook.MailItem) As Boole
         intPos2 = InStr(1, objItem.Body, strKeyword2)
         If intPos1 > 0 Or intPos2 > 0 Then
             strMsg = ParseTextLinePair(strMsgSet, "Check for attachments:")
-            If MsgBoxW(strMsg, vbQuestion + vbYesNo, "Add attachments?") = vbYes Then CancelBlankOrNoAttachments = True
+            If MsgBoxW(strMsg, vbQuestion + vbYesNo, "Add attachments?") = vbYes Then
+                CancelNoAttachments = True
+            Else: CancelNoAttachments = False
+            End If
         End If
     End If
     Set fso = Nothing
     Set fsoFile = Nothing
 End Function
 
-'Tùy biến hàm MsgBox để hỗ trợ hiển thị ký tự Unicode
+'Tùy bi?n hàm MsgBox đ? h? tr? hi?n th? k? t? Unicode
 Public Function MsgBoxW(Prompt As String, Optional Buttons As VbMsgBoxStyle = vbOKOnly, Optional Title As String = "Microsoft Outlook") As VbMsgBoxResult
 Select Case Buttons
     Case vbInformation
