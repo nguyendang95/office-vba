@@ -7,6 +7,7 @@ Sub SaveAttachmentsFromSelectedMails()
     Dim objFSO, objShell As Object
     Dim i, j As Long
     Dim strFolderPath, strRCDatePath, strRCTimePath, strSenderPath, strFileName As String
+    Dim lngCountOfAttchs As Long
     
     strFolderPath = Environ$("USERPROFILE") & "\Documents\Outlook Attachments"
     Set objSelection = Application.ActiveExplorer.Selection
@@ -40,9 +41,11 @@ Sub SaveAttachmentsFromSelectedMails()
                         strFileName = strRCTimePath & "\" & objAtt.FileName
                         If Not objFSO.FileExists(strFileName) Then
                             objAtt.SaveAsFile strFileName
+                            lngCountOfAttchs = lngCountOfAttchs + 1
                         Else
                             Kill strFileName
                             objAtt.SaveAsFile strFileName
+                            lngCountOfAttchs = lngCountOfAttchs + 1
                         End If
                     Next
                 End If
@@ -52,7 +55,7 @@ Sub SaveAttachmentsFromSelectedMails()
         MsgBox "To run this macro, you need to select at least an email.", vbExclamation, "You did not select any email"
         Exit Sub
     End If
-    objShell.Run "explorer """ & strFolderPath & "", vbNormalFocus
+    If Not lngCountOfAttchs = 0 Then objShell.Run "explorer """ & strFolderPath & "", vbNormalFocus
     Set objSelection = Nothing
     Set objMail = Nothing
     Set objAttch = Nothing
