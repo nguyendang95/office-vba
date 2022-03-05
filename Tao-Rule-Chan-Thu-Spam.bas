@@ -11,7 +11,7 @@ Public Sub CreateMoveMailsRule()
     Dim objMail As Outlook.MailItem
     Dim i, j As Long
     Dim arrRecipients()
-    Set objStore = Application.Session.DefaultStore
+    Set objStore = Application.ActiveExplorer.CurrentFolder.Store
     Set objJunkFldr = objStore.GetDefaultFolder(olFolderJunk)
     Set colRules = objStore.GetRules
     Set objSel = Application.ActiveExplorer.Selection
@@ -65,7 +65,7 @@ Public Function RuleExists(RuleName As String) As Boolean
     Dim colRules As Outlook.Rules
     Dim i As Long
     RuleExists = False
-    Set colRules = Application.Session.DefaultStore.GetRules
+    Set colRules = Application.ActiveExplorer.CurrentFolder.Store.GetRules
     If colRules.Count > 0 Then
         For i = 1 To colRules.Count
             Set objRule = colRules.Item(i)
