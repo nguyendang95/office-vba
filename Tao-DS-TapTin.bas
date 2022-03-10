@@ -15,6 +15,7 @@ Public Sub CreateFileList()
             Else: strPath = .SelectedItems(1)
             End If
         End With
+        Application.ScreenUpdating = False
         Set objWb = Application.Workbooks.Add
         Set objSh = objWb.Sheets(1)
         Set objFSO = CreateObject("Scripting.FileSystemObject")
@@ -137,6 +138,7 @@ Public Sub CreateFileList()
         objSh.Range("A:H").Columns.AutoFit
         objSh.Range("A6:H6").Font.Bold = True
         objSh.Range("A6").CurrentRegion.Borders.LineStyle = xlContinuous
+        Application.ScreenUpdating = True
         Set objWb = Nothing
         Set objSh = Nothing
         Set objFSO = Nothing
@@ -146,6 +148,7 @@ Public Sub CreateFileList()
         Set objSubFolders = Nothing
         Set objFolderPicker = Nothing
     End Sub
+                                                                                                   
     Private Function GetFileExtension(FileName As String) As String
         On Error GoTo BlankFileExtension
         GetFileExtension = Mid(FileName, InStrRev(FileName, "."))
