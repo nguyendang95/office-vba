@@ -1,14 +1,14 @@
 Option Explicit
-		Dim objApp
+	Dim objApp
         Dim objWb
         Dim objSh
         Dim objFSO, objFile, objFolder, objSubFolder, objSubFolders
         Dim lngRow, lngCount
         Dim strPath
-		strPath = GetCurrentFolder 
-		Set objApp = CreateObject("Excel.Application")
-		objApp.Visible = True
-		objApp.ScreenUpdating = False
+	strPath = GetCurrentFolder 
+	Set objApp = CreateObject("Excel.Application")
+	objApp.Visible = True
+	objApp.ScreenUpdating = False
         Set objWb = objApp.Workbooks.Add
         Set objSh = objWb.Sheets(1)
         Set objFSO = CreateObject("Scripting.FileSystemObject")
@@ -130,7 +130,7 @@ Option Explicit
         objSh.Range("A:H").Columns.AutoFit
         objSh.Range("A6:H6").Font.Bold = True
         objSh.Range("A6").CurrentRegion.Borders.LineStyle = 1
-		objApp.ScreenUpdating = True
+	objApp.ScreenUpdating = True
         Set objWb = Nothing
         Set objSh = Nothing
         Set objFSO = Nothing
@@ -143,7 +143,7 @@ Option Explicit
         On Error Resume Next
         GetFileExtension = Mid(FileName, InStrRev(FileName, "."))
         If Err.Number = 5 Then
-			GetFileExtension = vbNullString
+		GetFileExtension = vbNullString
         End If
     End Function
 
@@ -151,8 +151,9 @@ Option Explicit
         BytesToKilobytes = Round(Bytes / 1000, 0)
     End Function
 	
-	Function GetCurrentFolder()
-		Dim FSO
-		Set fso = CreateObject("Scripting.FileSystemObject")
-		GetCurrentFolder= FSO.GetAbsolutePathName(".")
-	End Function
+Function GetCurrentFolder()
+	Dim FSO
+	Set FSO = CreateObject("Scripting.FileSystemObject")
+	GetCurrentFolder= FSO.GetAbsolutePathName(".")
+	Set FSO = Nothing
+End Function
