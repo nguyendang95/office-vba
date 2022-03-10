@@ -49,16 +49,13 @@ Sub SaveAttachmentsFromSelectedMails()
                         End If
                     Next
                 End If
-            Else
-                MsgBox "To run this macro, you need to select at least an email.", vbExclamation, "You did not select any email"
-                Exit Sub
             End If
         Next
+    Else
+        MsgBox "To run this macro, you need to select at least an email.", vbExclamation, "You did not select any email"
+        Exit Sub
     End If
-    If Err.Number = 0 Then
-        MsgBox CStr(lngCountOfAttchs) & " attachments in selected email(s) have been saved to " & strFolderPath & ". Operation complete!", vbInformation, "Operation Complete"
-        objShell.Run "explorer """ & strFolderPath & "", vbNormalFocus
-    End If
+    If Not lngCountOfAttchs = 0 Then objShell.Run "explorer """ & strFolderPath & "", vbNormalFocus
     Set objSelection = Nothing
     Set objMail = Nothing
     Set objAttch = Nothing
