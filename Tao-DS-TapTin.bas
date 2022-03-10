@@ -41,7 +41,6 @@ Public Sub CreateFileList()
             For Each objFile In objSubFolder.Files
                 With objFile
                     lngCount = lngCount + 1
-                    Debug.Print .Name
                     objSh.Cells(lngRow, 1).Value = .Name
                     objSh.Cells(lngRow, 2).Value = .ParentFolder
                     objSh.Cells(lngRow, 4).Value = .DateCreated
