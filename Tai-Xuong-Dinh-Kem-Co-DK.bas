@@ -1,6 +1,6 @@
 Option Explicit
 
-Private Sub SaveAttachments()
+Public Sub SaveAttachments()
     Dim objStore As Outlook.Store
     Dim objInboxFld As Outlook.Folder
     Dim objMail As Outlook.MailItem
