@@ -1,6 +1,6 @@
 Option Explicit
 
-Private Sub SaveAttachments()
+Public Sub SaveAttachments()
     Dim objStore As Outlook.Store
     Dim objInboxFld As Outlook.Folder
     Dim objMail As Outlook.MailItem
@@ -17,7 +17,7 @@ Private Sub SaveAttachments()
     If Not objFSO.FolderExists(strFolderPath) Then objFSO.CreateFolder strFolderPath
     Set objStore = Application.ActiveExplorer.CurrentFolder.Store
     Set objInboxFld = objStore.GetDefaultFolder(olFolderInbox)
-    strFind = "@SQL=" & "%thismonth(" & Quote("urn:schemas:httpmail:datereceived") & ")%" & " And " & Quote("urn:schemas:httpmail:fromemail") & "='dangmastertime@gmail.com'" & " And " & Quote("urn:schemas:httpmail:hasattachment") & "=1"
+    strFind = "@SQL=" & "%thismonth(" & Quote("urn:schemas:httpmail:datereceived") & ")%" & " And " & Quote("urn:schemas:httpmail:fromemail") & "='abc@gmail.com'" & " And " & Quote("urn:schemas:httpmail:hasattachment") & "=1"
     Set colItems = objInboxFld.Items.Restrict(strFind)
     If Not colItems Is Nothing Then
         For Each objItem In colItems
