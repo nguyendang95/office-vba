@@ -59,7 +59,7 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
         Const strExportFolder = Environ$("USERPROFILE") & "\Documents"
         strFileName = strExportFolder & "\RequestCodesResult.pdf"
         If Dir(strFileName) <> vbNullString Then Kill strFileName
-        objXlTable.Range.ExportAsFixedFormat xlTypePDF, strExportFolder & "\RequestCodesResult.pdf"
+        objXlTable.Range.ExportAsFixedFormat xlTypePDF, strFileName
         objXlWb.Close SaveChanges:=False
         objXlApp.Quit
         Set objReplyMail = objMail.Reply
