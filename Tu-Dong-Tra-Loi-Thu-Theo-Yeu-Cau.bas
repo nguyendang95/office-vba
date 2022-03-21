@@ -11,7 +11,6 @@ End Sub
 Private Sub colItems_ItemAdd(ByVal Item As Object)
     Dim objMail As Outlook.MailItem
     Dim objReplyMail As Outlook.MailItem
-    Dim objAtt As Outlook.Attachment
     Dim objXlApp As Object
     Dim objXlWb As Object
     Dim objXlDataSh As Object
@@ -76,7 +75,6 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
     Set objMail = Nothing
     Set objReplyMail = Nothing
     Set objAtt = Nothing
-    Set objXlApp = Nothing
     Set objXlDataSh = Nothing
     Set objXlResultSh = Nothing
     Set objXlTable = Nothing
