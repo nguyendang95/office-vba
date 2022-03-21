@@ -27,11 +27,13 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
     If Item.Class = olMail Then
         Set objMail = Item
         Set objXlApp = CreateObject("Excel.Application")
-        'Thu muc chua tap tin Excel can lay du lieu
-        Const strWbPath = "C:\Users\nguye\OneDrive\ThucHanhVBA\CongViec\Order Request Tracker\change-order-request-tracker-template-excel.xlsx"
+        'Ten tap tin Excel can lay du lieu
+        Const strWbPath = Environ$("USERPROFILE") & "\Documents\template-excel.xlsx"
         Set objXlWb = objXlApp.Workbooks.Open(strWbPath, , True)
+        'Ten Sheet chua du lieu can tuong tac
         Set objXlDataSh = objXlApp.Sheets("2016")
         If objXlDataSh.AutoFilterMode Then objXlDataSh.AutoFilterMode = False
+        'Ten Sheet chua du lieu sau khi da loc AutoFilter
         Set objXlResultSh = objXlApp.Sheets("TableResult")
         Set objXlTable = objXlResultSh.ListObjects(1)
         OldTableRowCount = objXlTable.ListRows.Count
@@ -54,8 +56,8 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
             objXlListRow.Range.Value = Data()
         Next
         Const xlTypePDF As Byte = 0
-        'Thu muc xuat ra ket qua, tap tin PDF
-        Const strExportFolder = "C:\Users\nguye\OneDrive\ThucHanhVBA\CongViec\Order Request Tracker"
+        'Thu muc xuat ra ket qua, tap tin PDF                                             
+        Const strExportFolder = Environ$("USERPROFILE") & "\Documents"
         strFileName = strExportFolder & "\RequestCodesResult.pdf"
         If Dir(strFileName) <> vbNullString Then Kill strFileName
         objXlTable.Range.ExportAsFixedFormat xlTypePDF, strExportFolder & "\RequestCodesResult.pdf"
