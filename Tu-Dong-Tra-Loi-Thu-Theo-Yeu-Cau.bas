@@ -18,7 +18,7 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
     Dim objXlTable As Object
     Dim objDataRng As Object
     Dim objXlListRow As Object
-    Dim OldTableRowCount As Long, i As Long, j As Long, tblLastRow As Long
+    Dim OldTableRowCount As Long, i As Long, tblLastRow As Long
     Dim strFileName As String
     Dim Data()
     Dim objRegEx As Object
