@@ -54,6 +54,7 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
             Set objXlListRow = objXlTable.ListRows.Add(tblLastRow - 1)
             objXlListRow.Range.Value = Data()
         Next
+        If objXlTable.ListRows.Count = 0 Then Exit Sub                                                
         Const xlTypePDF As Byte = 0
         'Thu muc xuat ra ket qua, tap tin PDF                                             
         Const strExportFolder = Environ$("USERPROFILE") & "\Documents"
