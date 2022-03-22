@@ -42,6 +42,7 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
         Set objDataRng = objXlDataSh.Range("A1").CurrentRegion
         Set objRegEx = CreateObject("VBScript.RegExp")
         With objRegEx
+            'Lấy mẫu cần tìm bằng ReGex                                            
             .Pattern = "CDISC-[0-9]{4}"
             .Global = True
         End With
