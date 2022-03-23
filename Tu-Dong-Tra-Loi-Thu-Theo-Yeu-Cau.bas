@@ -11,6 +11,7 @@ End Sub
 Private Sub colItems_ItemAdd(ByVal Item As Object)
     Dim objMail As Outlook.MailItem
     Dim objReplyMail As Outlook.MailItem
+    Dim objAtt As Outlook.Attachment
     Dim objXlApp As Object
     Dim objXlWb As Object
     Dim objXlDataSh As Object
@@ -18,7 +19,7 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
     Dim objXlTable As Object
     Dim objDataRng As Object
     Dim objXlListRow As Object
-    Dim OldTableRowCount As Long, i As Long, tblLastRow As Long
+    Dim OldTableRowCount As Long, i As Long, j As Long, tblLastRow As Long
     Dim strFileName As String
     Dim Data()
     Dim objRegEx As Object
@@ -26,8 +27,8 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
     If Item.Class = olMail Then
         Set objMail = Item
         Set objXlApp = CreateObject("Excel.Application")
-        'Ten tap tin Excel can lay du lieu
-        Const strWbPath = Environ$("USERPROFILE") & "\Documents\template-excel.xlsx"
+        'Thu muc chua tap tin Excel can lay du lieu
+        Const strWbPath = "C:\Users\nguye\OneDrive\ThucHanhVBA\CongViec\Order Request Tracker\change-order-request-tracker-template-excel.xlsx"
         Set objXlWb = objXlApp.Workbooks.Open(strWbPath, , True)
         'Ten Sheet chua du lieu can tuong tac
         Set objXlDataSh = objXlApp.Sheets("2016")
@@ -42,7 +43,6 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
         Set objDataRng = objXlDataSh.Range("A1").CurrentRegion
         Set objRegEx = CreateObject("VBScript.RegExp")
         With objRegEx
-            'Lấy mẫu cần tìm bằng ReGex                                            
             .Pattern = "CDISC-[0-9]{4}"
             .Global = True
         End With
@@ -55,13 +55,17 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
             Set objXlListRow = objXlTable.ListRows.Add(tblLastRow - 1)
             objXlListRow.Range.Value = Data()
         Next
-        If objXlTable.ListRows.Count = 0 Then Exit Sub                                                
+        If objXlTable.ListRows.Count = 0 Then
+            objXlWb.Close SaveChanges:=False
+            objXlApp.Quit
+            Exit Sub
+        End If
         Const xlTypePDF As Byte = 0
-        'Thu muc xuat ra ket qua, tap tin PDF                                             
-        Const strExportFolder = Environ$("USERPROFILE") & "\Documents"
+        'Thu muc xuat ra ket qua, tap tin PDF
+        Const strExportFolder = "C:\Users\nguye\OneDrive\ThucHanhVBA\CongViec\Order Request Tracker"
         strFileName = strExportFolder & "\RequestCodesResult.pdf"
         If Dir(strFileName) <> vbNullString Then Kill strFileName
-        objXlTable.Range.ExportAsFixedFormat xlTypePDF, strFileName
+        objXlTable.Range.ExportAsFixedFormat xlTypePDF, strExportFolder & "\RequestCodesResult.pdf"
         objXlWb.Close SaveChanges:=False
         objXlApp.Quit
         Set objReplyMail = objMail.Reply
@@ -71,12 +75,13 @@ Private Sub colItems_ItemAdd(ByVal Item As Object)
             .HTMLBody = "<p>Hello,</p><br>" & _
                     "<p>Here is the result.</p>"
             .Attachments.Add strFileName
-            '.Send /.Send de gui thu ngay lap tuc
+            '.Send
         End With
     End If
     Set objMail = Nothing
     Set objReplyMail = Nothing
     Set objAtt = Nothing
+    Set objXlApp = Nothing
     Set objXlDataSh = Nothing
     Set objXlResultSh = Nothing
     Set objXlTable = Nothing
