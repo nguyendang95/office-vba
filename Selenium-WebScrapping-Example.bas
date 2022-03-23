@@ -1,7 +1,9 @@
 Option Explicit
-'Public Sub objChrome As Selenium.ChromeDriver As Selenium.ChromeDriver khai bao bien objChrome de ngan khong cho Chrome tat khi ket thuc thu tuc Sub
+'Khai báo biến toàn cục objChrome bên ngoài thủ tục sẽ ngăn không cho Chrome bị đóng lại sau khi kết thúc thủ tục
+'Public Sub objChrome As Selenium.ChromeDriver As Selenium.ChromeDriver 
 
 Public Sub GetTableDataFromWeb()
+    'Khai báo biến objChrome bên trong thủ tục sẽ khiến cho Chrome bị đóng lại ngay sau khi kết thúc thủ tục
     Dim objChrome As Selenium.ChromeDriver 'Khai bao objChrome trong thu tuc se khien cho Chrome bi tat khi ket thuc thu tuc Sub
     Dim objTRs As Selenium.WebElements
     Dim objTR As Selenium.WebElement
@@ -12,29 +14,30 @@ Public Sub GetTableDataFromWeb()
     Const strURL As String = "https://www.worldometers.info/coronavirus/" 'Dia chi trang web
     Set objChrome = New Selenium.ChromeDriver
     With objChrome
-        .AddArgument "--headless" 'Khong hien thi Chrome khi chay thu tuc
-        .Start 'Mo Chrome
-        .Get strURL 'Truy cap trang web
-        'Xac dinh cac hang du lieu
+        .AddArgument "--headless" 'Đặt tham số này để Chrome không hiển thị khi chạy
+        .Start 'Mở Chrome
+        .Get strURL 'Truy cập trang web cần lấy dữ liệu
+        'Xác định các hàng của bảng dữ liệu cần lấy
         Set objTRs = .FindElementById("main_table_countries_today").FindElementByTag("tbody").FindElementsByTag("tr")
     End With
-    lngRowCount = objTRs.Count 'Dem so hang du lieu
-    lngColumnCount = objTRs(1).FindElementsByTag("td").Count 'Dem so cot du lieu
-    ReDim Preserve Data(1 To lngRowCount, 1 To lngColumnCount) 'Khai bao mang hai chieu de chua du lieu lay tu trang web
+    lngRowCount = objTRs.Count 'Đếm số hàng dữ liệu
+    lngColumnCount = objTRs(1).FindElementsByTag("td").Count 'Đếm số cột dữ liệu
+    'Khai báo mảng hai chiều để chứa dữ liệu lấy từ trang web
+    ReDim Preserve Data(1 To lngRowCount, 1 To lngColumnCount) 
     r = 1 'Vi tri hang trong tap tin Excel
-    'Duyet qua tung hang
+    'Duyệt qua từng hàng trong bảng
     For Each objTR In objTRs
         c = 1
         Set objTDs = objTR.FindElementsByTag("td")
-        'Duyet qua tung cot
+        'Duyệt qua từng cột trong bảng
         For Each objTD In objTDs
-            Data(r, c) = objTD.Text 'Lay du lieu cua hang
+            Data(r, c) = objTD.Text 'Lấy dữ liệu
             c = c + 1
         Next
         r = r + 1
     Next
     lngLastRow = Cells(Rows.Count, 1).End(xlUp).Row
-    'Dua du lieu lay tu trang web vao tap tin Excel
+    'Đưa dữ liệu trong mảng hai chiều ra tập tin Excel
     Range(Cells(lngLastRow + 1, 1), Cells(lngLastRow + lngRowCount, lngColumnCount)).Value = Data
     Set objChrome = Nothing
     Set objTRs = Nothing
