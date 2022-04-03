@@ -15,7 +15,7 @@ Public Sub ImportExcelDataToWordTable()
     Const wdFormatDocumentDefault As Integer = 16
     Const wdAlignParagraphLeft As Byte = 0
     Set objFSO = CreateObject("Scripting.FileSystemObject")
-    If Not objFSO.FolderExists(ActiveWorkbook.Path & "\Ketqua\") Then objFSO.CreateFolder ActiveWorkbook.Path & "\Ketqua\"
+    If Not objFSO.FolderExists(ActiveWorkbook.Path & "\Ketqua\") Then objFSO.CreateFolder ActiveWorkbook.Path & "\Ketqua"
     lngLastRow = Cells(Rows.Count, 1).End(xlUp).Row
     arrRangeData() = Cells(lngLastRow, 1).CurrentRegion.Value
     Set objWrdApp = CreateObject("Word.Application")
