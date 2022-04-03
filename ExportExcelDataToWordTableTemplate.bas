@@ -1,20 +1,24 @@
 Option Explicit
 
 Public Sub ImportExcelDataToWordTable()
-    Dim objWrdApp As Word.Application
-    Dim objWrdDoc1 As Word.Document
-    Dim objWrdDoc2 As Word.Document
-    Dim objWrdTable1 As Word.Table
-    Dim objWrdTable2 As Word.Table
+    Dim objWrdApp As Object
+    Dim objWrdDoc1 As Object
+    Dim objWrdDoc2 As Object
+    Dim objWrdTable1 As Object
+    Dim objWrdTable2 As Object
     Dim lngRow As Long, lngColumn As Long, lngLastRow As Long
     Dim arrRangeData()
     Dim objShell As Object
     Dim objFSO As Object
+    Const wdAlertsNone As Byte = 0
+    Const wdAlertsAll As Integer = -1
+    Const wdFormatDocumentDefault As Integer = 16
+    Const wdAlignParagraphLeft As Byte = 0
     Set objFSO = CreateObject("Scripting.FileSystemObject")
     If Not objFSO.FolderExists(ActiveWorkbook.Path & "\Ketqua\") Then objFSO.CreateFolder ActiveWorkbook.Path & "\Ketqua\"
     lngLastRow = Cells(Rows.Count, 1).End(xlUp).Row
     arrRangeData() = Cells(lngLastRow, 1).CurrentRegion.Value
-    Set objWrdApp = New Word.Application
+    Set objWrdApp = CreateObject("Word.Application")
     objWrdApp.Visible = True
     objWrdApp.DisplayAlerts = wdAlertsNone
     Set objWrdDoc1 = objWrdApp.Documents.Open(Filename:=ActiveWorkbook.Path & "\TienAn.docx")
