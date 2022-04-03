@@ -1,6 +1,6 @@
 Option Explicit
 
-Public Sub ImportExcelDataToWordTableTemplates()
+Public Sub ImportExcelDataToWordTable()
     Dim objWrdApp As Word.Application
     Dim objWrdDoc1 As Word.Document
     Dim objWrdDoc2 As Word.Document
@@ -17,7 +17,7 @@ Public Sub ImportExcelDataToWordTableTemplates()
     Set objWrdApp = New Word.Application
     objWrdApp.Visible = True
     objWrdApp.DisplayAlerts = wdAlertsNone
-    Set objWrdDoc1 = objWrdApp.Documents.Open(Filename:="C:\Users\nguye\Documents\GàExcel\TienAn.docx")
+    Set objWrdDoc1 = objWrdApp.Documents.Open(Filename:=ActiveWorkbook.Path & "\TienAn.docx")
     If objWrdDoc1.Tables.Count > 0 Then
         Set objWrdTable1 = objWrdDoc1.Tables(1)
         For lngRow = 1 To lngLastRow - 3
@@ -32,7 +32,7 @@ Public Sub ImportExcelDataToWordTableTemplates()
     objWrdTable1.Range.Paragraphs.Alignment = wdAlignParagraphLeft
     objWrdDoc1.SaveAs2 Filename:=ActiveWorkbook.Path & "\Ketqua\TienAn.docx", FileFormat:=wdFormatDocumentDefault
     objWrdDoc1.Close
-    Set objWrdDoc2 = objWrdApp.Documents.Open(Filename:="C:\Users\nguye\Documents\GàExcel\ThanhTien.docx")
+    Set objWrdDoc2 = objWrdApp.Documents.Open(Filename:=ActiveWorkbook.Path & "\ThanhTien.docx")
     If objWrdDoc2.Tables.Count > 0 Then
         Set objWrdTable2 = objWrdDoc2.Tables(1)
         For lngRow = 1 To lngLastRow - 3
