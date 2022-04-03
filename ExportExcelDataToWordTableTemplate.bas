@@ -6,14 +6,13 @@ Public Sub ImportExcelDataToWordTableTemplates()
     Dim objWrdDoc2 As Word.Document
     Dim objWrdTable1 As Word.Table
     Dim objWrdTable2 As Word.Table
-    Dim lngRow As Long, lngColumn As Long, lngLastRow As Long, lngLastColumn As Long
+    Dim lngRow As Long, lngColumn As Long, lngLastRow As Long
     Dim arrRangeData()
     Dim objShell As Object
     Dim objFSO As Object
     Set objFSO = CreateObject("Scripting.FileSystemObject")
     If Not objFSO.FolderExists(ActiveWorkbook.Path & "\Ketqua\") Then objFSO.CreateFolder ActiveWorkbook.Path & "\Ketqua\"
     lngLastRow = Cells(Rows.Count, 1).End(xlUp).Row
-    lngLastColumn = Cells(1, 1).End(xlToRight).Column
     arrRangeData() = Cells(lngLastRow, 1).CurrentRegion.Value
     Set objWrdApp = New Word.Application
     objWrdApp.Visible = True
