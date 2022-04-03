@@ -19,7 +19,6 @@ Public Sub ImportExcelDataToWordTable()
     lngLastRow = Cells(Rows.Count, 1).End(xlUp).Row
     arrRangeData() = Cells(lngLastRow, 1).CurrentRegion.Value
     Set objWrdApp = CreateObject("Word.Application")
-    objWrdApp.Visible = True
     objWrdApp.DisplayAlerts = wdAlertsNone
     Set objWrdDoc1 = objWrdApp.Documents.Open(Filename:=ActiveWorkbook.Path & "\TienAn.docx")
     If objWrdDoc1.Tables.Count > 0 Then
