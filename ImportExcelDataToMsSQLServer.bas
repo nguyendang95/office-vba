@@ -1,6 +1,6 @@
 Option Explicit
 
-Private Sub ImportToMsSQLServer()
+Private Sub ImportExcelDataToMsSQLServer()
     Dim objCn As Object
     Dim objDataRange As Excel.Range
     Dim lngLastRow As Long, i As Long
