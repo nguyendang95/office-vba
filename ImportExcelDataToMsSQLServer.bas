@@ -1,16 +1,16 @@
 Option Explicit
 
-Private Sub ImportExcelDataToMsSQLServer()
+Private Sub ImportToMsSQLServer()
     Dim objCn As Object
     Dim objDataRange As Excel.Range
-    Dim lngLastRow As Long
+    Dim lngLastRow As Long, i As Long
     Dim strCnnStr As String
     Dim arrData()
     lngLastRow = Cells(Rows.Count, 2).End(xlUp).Row
     Set objDataRange = Range("B3:H" & lngLastRow)
     arrData() = objDataRange.Value
     Set objCn = CreateObject("ADODB.Connection")
-    strCnnStr = "Driver={SQL Server};Server=myserver\SQLEXPRESS;Database=QuanLyThuVien;User Id=admin;Password=admin;"
+    strCnnStr = "Driver={SQL Server};Server=SERVER\SQLEXPRESS;Database=QuanLyThuVien;User Id=Dang;Password=monToanlop12;"
     With objCn
         .ConnectionString = strCnnStr
         .Open
@@ -28,5 +28,5 @@ Private Sub ImportExcelDataToMsSQLServer()
 End Sub
 
 Private Function SingleQuote(Text As Variant) As String
-    Quote = Chr(39) & Text & Chr(39)
+    SingleQuote = Chr(39) & Text & Chr(39)
 End Function
