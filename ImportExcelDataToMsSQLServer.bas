@@ -10,7 +10,7 @@ Private Sub ImportExcelDataToMsSQLServer()
     Set objDataRange = Range("B3:H" & lngLastRow)
     arrData() = objDataRange.Value
     Set objCn = CreateObject("ADODB.Connection")
-    strCnnStr = "Driver={SQL Server};Server=SERVER\SQLEXPRESS;Database=QuanLyThuVien;User Id=Dang;Password=monToanlop12;"
+    strCnnStr = "Driver={SQL Server};Server=myserver\SQLEXPRESS;Database=QuanLyThuVien;User Id=admin;Password=admin;"
     With objCn
         .ConnectionString = strCnnStr
         .Open
