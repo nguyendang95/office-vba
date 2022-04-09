@@ -17,8 +17,8 @@ Private Sub ImportExcelDataToMsSQLServer()
         .Open
         For i = 1 To UBound(arrData)
             .Execute "INSERT INTO T_BANDOC " & _
-                    "VALUES (" & "N" & SingleQuote(arrData(i, 1)) & ", " & "N" & SingleQuote(arrData(i, 2)) & ", " & "N" & SingleQuote(arrData(i, 3)) & _
-                    ", " & "N" & SingleQuote(arrData(i, 4)) & ", " & "N" & SingleQuote(arrData(i, 5)) & ", " & "N" & SingleQuote(arrData(i, 6)) & ", " & "N" & SingleQuote(arrData(i, 7)) & ")"
+                    "VALUES (" & ConvertToUnicode(SingleQuote(arrData(i, 1))) & ", " & ConvertToUnicode(SingleQuote(arrData(i, 2))) & ", " & ConvertToUnicode(SingleQuote(arrData(i, 3))) & _
+                    ", " & ConvertToUnicode(SingleQuote(arrData(i, 4))) & ", " & ConvertToUnicode(SingleQuote(arrData(i, 5))) & ", " & ConvertToUnicode(SingleQuote(arrData(i, 6))) & ", " & ConvertToUnicode(SingleQuote(arrData(i, 7))) & ")"
         Next
         .Close
     End With
@@ -29,4 +29,8 @@ End Sub
 
 Private Function SingleQuote(Text As Variant) As String
     SingleQuote = Chr(39) & Text & Chr(39)
+End Function
+
+Private Function ConvertToUnicode(Text As String) As String
+    ConvertToUnicode = "N" & Text
 End Function
