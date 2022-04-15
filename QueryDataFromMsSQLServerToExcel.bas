@@ -1,6 +1,6 @@
 Option Explicit
 
-Private Sub GetDatabaseFromMsSQLServer()
+Private Sub GetQueryDataFromMsSQLServer()
     Dim objCn As ADODB.Connection
     Dim objRs As ADODB.Recordset
     Dim objWs As Excel.Worksheet
