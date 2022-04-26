@@ -49,7 +49,7 @@ Public Property Get Database() As String
     Database = m_Database
 End Property
 
-Public Function RunSQL(SQLStatement As String, Optional TrustedConnection As UseTrustedConnection = 0, Optional User As Variant, Optional Password As Variant, Optional Server As Variant, Optional Port As Variant) As ADODB.Recordset
+Public Function RunSQL(SQLStatement As String, Optional TrustedConnection As UseTrustedConnection = UseTrustedConnection.DoNotUseTrustedConnection, Optional User As Variant, Optional Password As Variant, Optional Server As Variant, Optional Port As Variant) As ADODB.Recordset
     Dim objCnn As ADODB.Connection
     Dim objCmd As ADODB.Command
     Dim strCnnStr As String
