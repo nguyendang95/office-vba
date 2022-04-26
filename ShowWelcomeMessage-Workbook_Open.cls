@@ -1,3 +1,4 @@
+'Class Module 'Welcome'
 Option Explicit
 
 Private WithEvents objXlApp As Excel.Application
