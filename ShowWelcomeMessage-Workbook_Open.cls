@@ -14,13 +14,3 @@ End Sub
 Private Sub objXlApp_WorkbookOpen(ByVal Wb As Workbook)
     MsgBox "Welcome to Excel", vbInformation, "Welcome"
 End Sub
-
-'ThisWorkbook
-
-Option Explicit
-
-Private Welcome As Welcome
-
-Private Sub Workbook_Open()
-    Set Welcome = New Welcome
-End Sub
