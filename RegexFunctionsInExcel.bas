@@ -51,4 +51,5 @@ Public Function RegexMatch(Range As Excel.Range, Pattern As String) As Boolean
     Else: RegexMatch = False
     End If
     Set objRegex = Nothing
+    Set colMatches = Nothing
 End Function
