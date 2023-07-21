@@ -100,8 +100,8 @@ Private Function GetSession() As MicrosoftGraphOAuth2
     With objMicrosoft
         .Tenant = Organizations
         .ApplicationName = "Teams"
-        .ClientId = "510ce4dc-7eb1-48d9-a237-4efaa4c6852d"
-        .Scope = Array("Files.ReadWrite.All", "Channel.ReadBasic.All", "OnlineMeetings.ReadWrite")
+        .ClientId = "client_id"
+        .Scope = Array("OnlineMeetings.ReadWrite")
         On Error Resume Next
         .AuthorizeOAuth2
         If Err.Number = 0 Then Set GetSession = objMicrosoft
@@ -115,7 +115,7 @@ Private Sub LogOut()
     With objMicrosoft
         .Tenant = Organizations
         .ApplicationName = "Teams"
-        .ClientId = "510ce4dc-7eb1-48d9-a237-4efaa4c6852d"
+        .ClientId = "client_id"
         On Error Resume Next
         .LogOut
         If Err.Number <> 0 Then MsgBox Err.Description, vbExclamation, "Error"
